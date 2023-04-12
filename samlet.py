@@ -5,19 +5,40 @@ import time
 import numpy as np
 from datetime import datetime, timedelta
 
-n1 = 23
+n1 = 24
 n2 = 1
 n3 = 0
 n4 = 0
 
 p1 = neopixel.NeoPixel(board.D18,n1)
-#p2 = neopixel.NeoPixel(board.D21,n2)
 p2 = neopixel.NeoPixel(board.D21,n2)
 
-r = (255,0,0)
-g = (0,255,0)
-b = (0,0,255)
-p2.fill(r)
+R = (255,0,0)
+G = (0,255,0)
+B = (0,0,255)
+H = (255,255,255)
+BL = (0,0,0)
+
+p1.fill((100,100,100))
+
+def half(c1,c2,t):
+	x = [c1]*(n1//2)
+	x += [c2]*(n1//2)
+	p1[:len(x)] = x
+	time.sleep(t)
+
+
+
+def skift(c1,c2,t):
+	template = [c1,c1,c1,c1,c2,c2,c2,c2]
+	x = template*(n1//len(template))
+	p1[:len(x)] = x
+	time.sleep(t) 
+	x.reverse()
+	p1[:len(x)] = x 
+	time.sleep(t) 
+
+
 
 def blink(c, n, t):
 	for j in range(n):
@@ -39,13 +60,14 @@ def pulsing(c, n, t):
 			p1.fill((i*c[0],i*c[1],i*c[2]))
 			time.sleep(t)
 			p1.show()
-		if input_device.poll():
-			p1.fill(0,0,0)
-			break
 		d = datetime.now()-t1
 		print(d)
 	p1.fill((0,0,0))
 
+
+def farve(c,n,t):
+	p1.fill(c)
+	time.sleep(t)
 
 def wheel(pos):
     if pos < 0 or pos > 255:
@@ -79,10 +101,10 @@ def rainbow_cycle(c,n,t):
 
 
 if __name__ == "__main__":
-	blink((0,255,0),4,0.1)
-	pulsing((0,255,0),1,0.01)
-	blink((255,0,0),4,0.1)
-	blink((0,0,255),4,0.1)
-	rainbow_cycle((0,0,0),2,0.01)
-
-
+#	blink((0,255,0),4,0.1)
+#	pulsing((0,255,0),1,0.01)
+#	blink((255,0,0),4,0.1)
+#	blink((0,0,255),4,0.1)
+#	rainbow_cycle((0,0,0),2,0.01)
+	skift(G,B,0.5)
+	half(R,BL,1)
