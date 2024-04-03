@@ -13,7 +13,7 @@ def readInput(input_device):
 					c = event[0][0][1]
 					print(c)
 			if c == 1:
-				blink(H,1,0.1)
+				blink((100,100,100),1,0.1)
 				c  = 100
 			if c == 2:
 				blink(R,1,0.1)
